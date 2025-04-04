@@ -1,26 +1,25 @@
 import pygame as pg
 
-class TilePath(pg.sprite.Sprite):
+class Tile(pg.sprite.Sprite):
     """Class representing a tile path in the game."""
 
-    def __init__(self, image, pos):
-        super().__init__()
+    def __init__(self, image, type, pos):
+        pg.sprite.Sprite.__init__(self)
         self.image = image
         self.rect = self.image.get_rect(topleft=pos)
+        
+        self.blocked = False
+        self.type = "path"
 
+    def add_obstacles(self, obstacle_image):
+        """Add obstacles to the tile."""
+        if not self.blocked:
+            self.blocked = True
+            # Create a new surface to combine the tile and obstacle
+            new_image = self.image.copy()
+            new_image.blit(obstacle_image, (0, 0))
+            self.image = new_image
+        
     def update(self):
         """Update the tile path."""
         pass  # No specific update logic for tile paths at the moment
-    
-    
-class TileGrass(pg.sprite.Sprite):
-    """Class representing a tile grass in the game."""
-
-    def __init__(self, image, pos):
-        super().__init__()
-        self.image = image
-        self.rect = self.image.get_rect(topleft=pos)
-
-    def update(self):
-        """Update the tile grass."""
-        pass  # No specific update logic for tile grass at the moment
