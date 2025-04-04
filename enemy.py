@@ -6,7 +6,7 @@ from pygame.math import Vector2
 class Enemy(pg.sprite.Sprite):
     """Class representing an enemy in the game."""
 
-    def __init__(self, waypoints, image):
+    def __init__(self, waypoints, image) -> None:
         pg.sprite.Sprite.__init__(self)
         self.waypoints = waypoints
         self.pos = Vector2(self.waypoints[0])
@@ -20,12 +20,13 @@ class Enemy(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = self.pos
 
-    def update(self):
+    def update(self) -> None:
         """Update the enemy's position."""
         self.move()
         self.rotate()
 
-    def move(self):
+    def move(self) -> None:
+        """Move the enemy towards the target waypoint."""
         # Define a target waypoint
         if self.target_waypoint < len(self.waypoints):
             self.target = Vector2(self.waypoints[self.target_waypoint])
@@ -44,7 +45,8 @@ class Enemy(pg.sprite.Sprite):
                 self.pos += self.movement.normalize() * dist
             self.target_waypoint += 1
 
-    def rotate(self):
+    def rotate(self) -> None:
+        """Rotate the enemy towards the target waypoint."""
         # Calculate the distance to the next waypoint
         dist = self.target - self.pos
 

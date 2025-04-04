@@ -6,7 +6,7 @@ import constants as c
 class Turret(pg.sprite.Sprite):
     """Class representing a turret in the game."""
 
-    def __init__(self, image, tile_x, tile_y):
+    def __init__(self, image: pg.Surface, tile_x: int, tile_y: int) -> None:
         pg.sprite.Sprite.__init__(self)
         self.tile_x = tile_x
         self.tile_y = tile_y

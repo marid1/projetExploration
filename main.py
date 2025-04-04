@@ -45,7 +45,7 @@ for row in range(c.GRID_HEIGHT):
 
 
 # Create a turret and add it to the turret group
-def create_turret(mouse_pos):
+def create_turret(mouse_pos) -> None:
     mouse_tile_X = mouse_pos[0] // c.TILE_SIZE
     mouse_tile_Y = mouse_pos[1] // c.TILE_SIZE
 
