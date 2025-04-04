@@ -1,3 +1,9 @@
+# Screen settings
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 800
 FPS = 60
+
+# Grid settings
+TILE_SIZE = 50  # Size of each tile
+GRID_WIDTH = SCREEN_WIDTH // TILE_SIZE
+GRID_HEIGHT = SCREEN_HEIGHT // TILE_SIZE
