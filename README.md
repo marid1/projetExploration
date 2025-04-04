@@ -9,6 +9,8 @@ Nous devions inclure deux algorithmes différents : le `Pathfinding A*` et le `B
 la base du projet (le fonctionnement de la boucle de jeu et l'utilisation des classes de Pygame), ainsi que l'inclusion d'assets et d'animations, ont été créées grâce à un tutoriel YouTube détaillé, que vous pouvez trouver [ici](https://www.youtube.com/watch?v=WRuf9iPAXfM).
 Pour le reste du projet, notamment les algorithmes et le "gameplay", nous avons utilisé nos connaissances et compétences acquises à travers nos études.
 
+Des "assets" ont été utilisés pour ajouter un look plus intéressant à notre jeu. Vous pouvez les retrouver [ici](https://www.kenney.nl/assets/tower-defense-top-down) et [ici](https://fkgcluster.itch.io/survivaltowerdefense/download/eyJpZCI6MjQwNTc5NSwiZXhwaXJlcyI6MTc0Mzc4MzczNH0%3d.B4GQzia1U8Myd9DQqWM3HQuq0pc%3d)
+
 ## Prérequis
 
 Avant de pouvoir exécuter le jeu, vous devez installer **Pygame**, une bibliothèque Python qui permet de créer des jeux 2D.
