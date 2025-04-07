@@ -20,6 +20,8 @@ class World:
         self.money = c.MONEY
         self.enemy_list = []
         self.spawned_enemies = 0
+        self.killed_enemies = 0
+        self.missed_enemies = 0
 
     def generate_map(self):
         for row in range(self.grid_height):
@@ -45,6 +47,17 @@ class World:
 
         # Randomize list of enemies
         random.shuffle(self.enemy_list)
+
+    def check_level_complete(self):
+        if (self.killed_enemies + self.missed_enemies) == len(self.enemy_list):
+         return True   
+        
+    def reset_level(self):
+        # Reset enemy vars
+        self.enemy_list = []
+        self.spawned_enemies = 0
+        self.killed_enemies = 0
+        self.missed_enemies = 0
 
     def draw(self, surface):
         self.tile_group.draw(surface)
