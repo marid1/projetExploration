@@ -1,5 +1,6 @@
 import pygame as pg
 import random
+import constants as c
 from tile import Tile
 from enemy_data import ENEMY_SPAWN_DATA
 
@@ -15,6 +16,8 @@ class World:
         self.waypoints = []
 
         self.level = 1
+        self.health = c.HEALTH
+        self.money = c.MONEY
         self.enemy_list = []
         self.spawned_enemies = 0
 

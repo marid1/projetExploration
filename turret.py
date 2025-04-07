@@ -77,9 +77,6 @@ class Turret(pg.sprite.Sprite):
                 self.last_shot_time = pg.time.get_ticks()
                 self.target = None
 
-
-
-
     def pick_target(self, enemy_group):
         # Find enemy to target
         x_dist = 0
@@ -87,12 +84,16 @@ class Turret(pg.sprite.Sprite):
 
         # Check distance to each enemy to see if in range
         for enemy in enemy_group:
-            x_dist = enemy.pos[0] - self.x
-            y_dist = enemy.pos[1] - self.y
-            dist = math.sqrt(x_dist ** 2 + y_dist ** 2)
-            if dist < self.range:
-                self.target = enemy
-                print("Target selected")
+            # So turrets don't target dead enemies still
+            if enemy.health > 0:
+                x_dist = enemy.pos[0] - self.x
+                y_dist = enemy.pos[1] - self.y
+                dist = math.sqrt(x_dist ** 2 + y_dist ** 2)
+                if dist < self.range:
+                    self.target = enemy
+                    # Damage enemy
+                    self.target.health -= c.DAMAGE
+                    break
 
 
     def upgrade(self):
