@@ -3,6 +3,11 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 800
 FPS = 60
 SIDE_PANNEL = 300
+HEALTH = 100
+MONEY = 650
+
+# Enemy constants
+SPAWN_COOLDOWN = 400
 
 # Grid settings
 TILE_SIZE = 50  # Size of each tile

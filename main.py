@@ -5,6 +5,7 @@ from turret import Turret
 from tile import Tile
 from button import Button
 import constants as c
+from world import World
 
 # Intitialize Pygame
 pg.init()
@@ -17,6 +18,7 @@ screen = pg.display.set_mode((c.SCREEN_WIDTH + c.SIDE_PANNEL, c.SCREEN_HEIGHT))
 pg.display.set_caption("Tour de Défense")
 
 # Game variables
+last_enemy_spawn = pg.time.get_ticks()
 placing_turrets = False
 selected_turret = None
 
@@ -47,22 +49,11 @@ enemy_group = pg.sprite.Group()
 tile_group = pg.sprite.Group()
 turret_group = pg.sprite.Group()
 
-# Generate random grid using TilePath and TileGrass
-for row in range(c.GRID_HEIGHT):
-    for col in range(c.GRID_WIDTH):
-        tile_x = col * c.TILE_SIZE
-        tile_y = row * c.TILE_SIZE
-        # Use weighted random choice for path and grass
-        tile_type = random.choices(["path", "grass"], weights=[65, 35], k=1)[0]
-        if tile_type == "path":
-            tile = Tile(path_image, tile_type, (tile_x, tile_y))
-        else:
-            tile = Tile(grass_image, tile_type, (tile_x, tile_y))
-            add_obstacle = random.choices([True, False], weights=[15, 85], k=1)[0]
-            if add_obstacle:
-                tile.add_obstacles(rock_image)
-        tile_group.add(tile)
-
+# Initialize world
+world = World(grass_image, path_image, rock_image, c.GRID_WIDTH, c.GRID_HEIGHT, c.TILE_SIZE)
+world.generate_map()
+tile_group = world.tile_group
+world.process_enemies()
 
 # Create a turret and add it to the turret group
 def create_turret(mouse_pos) -> None:
@@ -94,10 +85,6 @@ def clear_selection():
 # Define waypoints for the enemy to follow
 waypoints = [(100, 100), (400, 200), (400, 100), (200, 300)]
 
-# Create an enemy and add it to the enemy group
-enemy_type = "weak"
-enemy = Enemy(enemy_type, waypoints, enemy_images)
-enemy_group.add(enemy)
 
 # Create buttons
 turret_button = Button(c.SCREEN_WIDTH + 30, 120, add_turret_image, True)
@@ -129,6 +116,15 @@ while run:
     enemy_group.draw(screen)
     for turret in turret_group:
         turret.draw(screen)
+
+    # Spawn enemies
+    if pg.time.get_ticks() - last_enemy_spawn > c.SPAWN_COOLDOWN:
+        if world.spawned_enemies < len(world.enemy_list):
+            enemy_type = world.enemy_list[world.spawned_enemies]
+            enemy = Enemy(enemy_type, waypoints, enemy_images)
+            enemy_group.add(enemy)
+            world.spawned_enemies += 1
+            last_enemy_spawn = pg.time.get_ticks()
 
     # Draw buttons
     if turret_button.draw(screen):
